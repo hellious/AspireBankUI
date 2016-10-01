@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Aspire Bank</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+<script>
+
+function readfile(file)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", "empdetails.json", true);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                var data  =  JSON.parse(allText);
+                //var select = document.getElementById("myaccounts");
+                for (var i =0 ; i< Object.keys(data["Savingsaccount"]).length ; i++)
+                { var option = document.createElement("option");
+                  option.text = data["Savingsaccount"][i]["Accountnumber"];
+                    option.value = data["Savingsaccount"][i]["Accountnumber"];
+                    var select = document.getElementById("myaccounts");
+                    select.appendChild(option);
+                }
+                for (var i =0 ; i< Object.keys(data["Checkingaccount"]).length ; i++)
+                { var option = document.createElement("option");
+                  option.text = data["Checkingaccount"][i]["Accountnumber"];
+                    option.value = data["Checkingaccount"][i]["Accountnumber"];
+                    var select = document.getElementById("myaccounts");
+                    select.appendChild(option);
+                }
+
+            }
+        }
+        
+    }
+    rawFile.send(null);
+}
+    window.onload=readfile;
+
+</script>
+    </head>
+
+
+
+
+    <body>
+      <script type="text/javascript">
+         
+         function showtable() {
+
+            var postdata = 
+                {
+                    "accountnumber":document.getElementById("myaccounts").value,
+                }
+                var dataString = JSON.stringify(postdata);
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "backend.jsp",
+                    data: {myData:dataString},
+                    contentType: "application/json; charset=utf-8",
+                    success: function(data){
+                        alert('transacion successfull');
+                    },
+                    error: function(e){
+                        console.log(e.message);
+                    }
+                });
+
+            }
+            /*
+             var selopt = document.getElementById("myaccounts").value;
+             if (selopt ==1) {
+               document.getElementById("f1").style.display = "block";
+               document.getElementById("f2").style.display = "none";
+               document.getElementById("f3").style.display = "none";
+           }
+           if (selopt==2){
+               document.getElementById("f1").style.display = "none";
+               document.getElementById("f2").style.display = "block";
+               document.getElementById("f3").style.display = "none";}
+
+               if (selopt==3){
+                   document.getElementById("f1").style.display = "none";
+                   document.getElementById("f2").style.display = "none";
+                   document.getElementById("f3").style.display = "block";
+               }
+           }*/
+
+       </script>
+
+
+
+       <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+
+                    Aspire Bank
+
+                </li>
+                <li>
+                    <a href="accounts.html">Account Information</a>
+                </li>
+                <li>
+                    <a href="transfercash.html">Transfer Cash</a>
+                </li>
+                <li>
+                    <a href="balanceinfo.html">Balance Statement</a>
+                </li>
+                <li>
+                    <a href="notification.html">Notification</a>
+                </li>
+                <li>
+                    <a href="editprofile.html">Edit Profile</a>
+                </li>
+                <li>
+                    <a href="#">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="banner">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                      <div class="inner">
+                         <div class="logo"><span class="icon fa-diamond"></span></div>
+                         <h1>Account Statement</h1>
+
+                         <label for="self">From Account Number:</label>
+                         <form action="" method="post">
+                             <select class="form-control" id="myaccounts" onchange="showtable()">
+                                <option value="None" </option>
+                            </select>
+
+                            <div id="f1" >   
+                             <table class="table table-striped">
+                                 <thead class="thead-inverse">
+                                    <tr>
+                                      <th>#</th>
+                                      <th>Date</th>
+                                      <th>Trasaction Name</th>
+                                      <th>Value</th>
+                                      <th>Balance</th>
+                                  </tr>
+
+                                  <!-- THE JSON STRING HAS TO BE OF THE FORM OF THE TABLE HEADING MENTIONED ABOVE SO THAT IT CAN BE EASILY DISPLAYED IN THE UI  -->
+                              </thead>
+                              <tbody>
+                                
+                          </tbody>
+                      </table>
+                  </div>
+
+          
+
+</form>
+</div>
+
+<div>
+ <button type="submit">Download</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+
+<!-- Menu Toggle Script -->
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
+
+</body>
+
+</html>
