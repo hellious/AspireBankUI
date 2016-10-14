@@ -1,0 +1,16 @@
+[{
+	"id": "1",
+	"description": "John",
+	"from": "Doe",
+	"amount": "100"
+}, {
+	"id": "2",
+	"description": "Anna",
+	"from": "Doe",
+	"amount": "200"
+}, {
+	"id": "3",
+	"description": "Peter",
+	"from": "Doe",
+	"amount": "300"
+}]

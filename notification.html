@@ -71,17 +71,46 @@
        <br>
 <!--<p class=" text-info">May 05,2014,03:00 pm </p>-->
       </div>
-        <class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-0 toppad">
-   
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <h3 class="panel-title">Account User name from database</h3>
+        <class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-0 toppad">   
             </div>
             <div class="panel-body">
               <div class="row">
-                <div class="col-md-12 col-lg-12 " align="center"> <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>
-                
-                <div class=" col-md-12 col-lg-12 "> 
+                <h2>Notifications</h2>
+				<table id="demoTable">
+				<tr><td>Description</td><td>To</td><td>Amount</td><td>Accept/Decline</td></tr>
+				<script>
+					window.onload=readfile()
+					function readfile()
+					{
+						var rawFile = new XMLHttpRequest();
+						rawFile.open("GET", "data.json", true);
+						rawFile.onreadystatechange = function ()
+						{
+						alert("hejfef");
+							if(rawFile.readyState === 4)
+							{alert("hejfef");
+								if(rawFile.status === 200 || rawFile.status == 0)
+								{alert("hejfef");
+									var allText = rawFile.responseText;
+									var data2  =  JSON.parse(allText);
+									//var select = document.getElementById("myaccounts");
+									var tr;
+								for (var i = 0; i < data.length; i++) {
+								console.log('enter');
+									tr = $('<tr/>');
+									tr.append("<td>" + data[i].description + "</td>");
+									tr.append("<td>" + data[i].from + "</td>");
+									tr.append("<td>" + data[i].amount + "</td>");
+									tr.append("<td>" + data[i].amount + "</td>");
+									$('table').append(tr);
+									}
+								}
+							}
+						}
+					}
+				</script>
+				</table>
+				<!--<div class=" col-md-12 col-lg-12 "> 
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
@@ -119,7 +148,7 @@
                     </tbody>
                   </table>
                   
-                </div>
+                </div>-->
               </div>
             </div>
                              

@@ -26,18 +26,12 @@
 
         <script type="text/javascript">
 
-        
-         
-function changename()
-            {
-
-                
-
-                var postdata = 
+         function getcreditdetails()
+         {
+        var postdata = 
                 {
-                    "cust_id": 9999888877776666
-                    "f_name":document.getElementById("firstname").value,
-                    "l_name":document.getElementById("lastname").value
+                    "cc_id": 123123123123
+                    "account_number": 123123123123
                 }
                 var dataString = JSON.stringify(postdata);
 
@@ -45,12 +39,73 @@ function changename()
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    url: "/tempexternaluser/update",
+                    url: "credit",
                     data: {myData:dataString},
                     contentType: "application/json; charset=utf-8",
-                    success: function(data,testResponse,xhr){
-                    //    console.log(data);
-                         //document.getElementById("c_name").innerHTML="Name change Succes";
+                    success: function(data, textStatus, xhr){
+                            if(xhr.status==200){
+
+                          document.getElementById("mp_cc_value").innerHTML=data['amount'];
+                          document.getElementById("mp_cc_number").innerHTML=data['cc_number'];
+                          document.getElementById("cc_purchase").innerHTML=data['cc_number'];
+                        }
+
+                         //variables needs to be checked from the backend
+                    },
+                    error: function(jqXHR, exception){
+                       error: function(jqXHR, exception) {
+                             var msg = '';
+                        if (jqXHR.status === 0) {
+                            msg = 'Not connect.\n Verify Network.';
+                        } else if (jqXHR.status == 404) {
+                            msg = 'Requested page not found. [404]';
+                        } else if (jqXHR.status == 500) {
+                            msg = 'Internal Server Error [500].';
+                        } else if (exception === 'parsererror') {
+                            msg = 'Requested JSON parse failed.';
+                        } else if (exception === 'timeout') {
+                            msg = 'Time out error.';
+                        } else if (exception === 'abort') {
+                            msg = 'Ajax request aborted.';
+                        } else {
+                            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                        }
+
+                        alert(msg);
+
+                        }
+
+                    }
+                });
+
+            }
+
+         
+function makepayment()
+            {
+
+                
+
+                var postdata = 
+                {
+                    "cc_id": 123123123123
+                    "credit_number":document.getElementById("creditcardno").value,
+                    "credit_value":document.getElementById("credit_amount").value
+                }
+                var dataString = JSON.stringify(postdata);
+
+                //alert(dataString);
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "credit",
+                    data: {myData:dataString},
+                    contentType: "application/json; charset=utf-8",
+                    success: function(data, textStatus, xhr){
+                             
+                         //console.log(data);
+                         document.getElementById("mp_cc_value").innerHTML=data['amount'];
+                         //variables needs to be checked from the backend
                     },
                     error: function(jqXHR, exception){
                        error: function(jqXHR, exception) {
@@ -86,8 +141,7 @@ function changeemail()
 
                 var postdata = 
                 {
-                  //{$variablename}
-                  "cust_id": 9999888877776666
+                  "cust_id": 123123123123
                     "email":document.getElementById("new_email").value
                 }
                 var dataString = JSON.stringify(postdata);
@@ -101,32 +155,10 @@ function changeemail()
                     data: {myData:dataString},
                     contentType: "application/json; charset=utf-8",
                     success: function(data,testResponse,xhr){
-                        console.log(data);
-                        //window.location.assign("otp.html");
+                        window.location.assign("otp.html");
                     },
-                    error: function(jqXHR, exception){
-                       error: function(jqXHR, exception) {
-                             var msg = '';
-                        if (jqXHR.status === 0) {
-                            msg = 'Not connect.\n Verify Network.';
-                        } else if (jqXHR.status == 404) {
-                            msg = 'Requested page not found. [404]';
-                        } else if (jqXHR.status == 500) {
-                            msg = 'Internal Server Error [500].';
-                        } else if (exception === 'parsererror') {
-                            msg = 'Requested JSON parse failed.';
-                        } else if (exception === 'timeout') {
-                            msg = 'Time out error.';
-                        } else if (exception === 'abort') {
-                            msg = 'Ajax request aborted.';
-                        } else {
-                            msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                        }
-
-                        alert(msg);
-
-                        }
-
+                    error: function(e){
+                       document.getElementById("c_email").innerHTML=e.message;
                     }
                 });
 
@@ -140,7 +172,7 @@ function changephone()
 
                 var postdata = 
                 {
-                  "cust_id": 9999888877776666
+                  "cust_id": 123123123123
                     "phone":document.getElementById("new_phone").value,
                     "mobile_carrier":document.getElementById("carrier").value
                 }
@@ -155,32 +187,10 @@ function changephone()
                     data: {myData:dataString},
                     contentType: "application/json; charset=utf-8",
                     success: function(data,testResponse,xhr){
-                      console.log(data);
                         window.location.assign("otp.html");
                     },
-                    error: function(jqXHR, exception){
-                       error: function(jqXHR, exception) {
-                             var msg = '';
-                        if (jqXHR.status === 0) {
-                            msg = 'Not connect.\n Verify Network.';
-                        } else if (jqXHR.status == 404) {
-                            msg = 'Requested page not found. [404]';
-                        } else if (jqXHR.status == 500) {
-                            msg = 'Internal Server Error [500].';
-                        } else if (exception === 'parsererror') {
-                            msg = 'Requested JSON parse failed.';
-                        } else if (exception === 'timeout') {
-                            msg = 'Time out error.';
-                        } else if (exception === 'abort') {
-                            msg = 'Ajax request aborted.';
-                        } else {
-                            msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                        }
-
-                        alert(msg);
-
-                        }
-
+                    error: function(e){
+                       document.getElementById("c_phone").innerHTML=e.message;
                     }
                 });
 
@@ -194,7 +204,7 @@ function changepassword()
 
                 var postdata = 
                 {
-                  "cust_id": 9999888877776666
+                  "cust_id": 123123123123
                     "old_password":document.getElementById("old_password").value,
                     "new_password":document.getElementById("new_password").value
 
@@ -210,33 +220,10 @@ function changepassword()
                     data: {myData:dataString},
                     contentType: "application/json; charset=utf-8",
                     success: function(data,testResponse,xhr){
-                      console.log(data);
-
                         document.getElementById("c_password").innerHTML="Transcation success";
                     },
-                    error: function(jqXHR, exception){
-                       error: function(jqXHR, exception) {
-                             var msg = '';
-                        if (jqXHR.status === 0) {
-                            msg = 'Not connect.\n Verify Network.';
-                        } else if (jqXHR.status == 404) {
-                            msg = 'Requested page not found. [404]';
-                        } else if (jqXHR.status == 500) {
-                            msg = 'Internal Server Error [500].';
-                        } else if (exception === 'parsererror') {
-                            msg = 'Requested JSON parse failed.';
-                        } else if (exception === 'timeout') {
-                            msg = 'Time out error.';
-                        } else if (exception === 'abort') {
-                            msg = 'Ajax request aborted.';
-                        } else {
-                            msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                        }
-
-                        alert(msg);
-
-                        }
-
+                    error: function(e){
+                       document.getElementById("c_password").innerHTML=e.message;
                     }
                 });
 
@@ -252,7 +239,7 @@ function changeusername()
 
                 var postdata = 
                 {
-                  "cust_id": 9999888877776666
+                  "cust_id": 123123123123
                     "new_username":document.getElementById("new_username").value
                     
                 }
@@ -269,29 +256,8 @@ function changeusername()
                     success: function(data,testResponse,xhr){
                         document.getElementById("c_username").innerHTML="Transcation success";
                     },
-                    error: function(jqXHR, exception){
-                       error: function(jqXHR, exception) {
-                             var msg = '';
-                        if (jqXHR.status === 0) {
-                            msg = 'Not connect.\n Verify Network.';
-                        } else if (jqXHR.status == 404) {
-                            msg = 'Requested page not found. [404]';
-                        } else if (jqXHR.status == 500) {
-                            msg = 'Internal Server Error [500].';
-                        } else if (exception === 'parsererror') {
-                            msg = 'Requested JSON parse failed.';
-                        } else if (exception === 'timeout') {
-                            msg = 'Time out error.';
-                        } else if (exception === 'abort') {
-                            msg = 'Ajax request aborted.';
-                        } else {
-                            msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                        }
-
-                        alert(msg);
-
-                        }
-
+                    error: function(e){
+                       document.getElementById("c_username").innerHTML=e.message;
                     }
                 });
 
@@ -301,7 +267,7 @@ function changeusername()
 
 
 
-          
+          window.onload=getcreditdetails;
 
         </script>
 
@@ -353,68 +319,19 @@ saurabh start
             <div class="container-fluid">
                 <ul class="nav nav-tabs nav-justified" role="tablist">
 
-                    <li><a data-toggle="tab" href="#changeName">Change Name</a></li>
-                    <li><a data-toggle="tab" href="#changeEmail">Change Email id</a></li>
-                    <li><a data-toggle="tab" href="#changePhone">Change Phone Number</a></li>
-                    <li><a data-toggle="tab" href="#changePassword">Change Password</a></li>
-                    <li><a data-toggle="tab" href="#changeUserName">Change UserName</a></li>
+                    <li><a data-toggle="tab" href="#makepayment">Make Payment</a></li>
+                    <li><a data-toggle="tab" href="#downloadstatement">Download Statement</a></li>
+                    <li><a data-toggle="tab" href="#makepurchase">Make Purchase</a></li>
+                    <!--<li><a data-toggle="tab" href="#changeUserName">Request Purchase</a></li>-->
+                    <li><a data-toggle="tab" href="#updatecclimit">Update Credit Limit</a></li>
                 </ul>
                 <div class="tab-content">
                     
-    <!-- ###################################### email tab-->
-                    <div id="changeEmail" class="tab-pane fade ">
-                        <div class="container">
-                          <h1>Edit Email ID</h1>
-                          <hr>
-                          <div class="row">
-                            <!-- left column -->
-
-
-                            <!-- edit form column -->
-                            <div class="col-md-12 personal-info">
-                              <div class="alert alert-info alert-dismissable">
-                                <a class="panel-close close" data-dismiss="alert">×</a> 
-                                <i class="fa fa-coffee"></i>
-                                <strong>Change Email Status:</strong><div id="c_email"></div>
-                              </div>
-
-                              <form class="form-horizontal" role="form" method="POST" onsubmit="changeemail()">
-                                
-     
-                                  
-                                <div class="form-group">
-                                  <label class="col-lg-3 control-label">New Email:</label>
-                                  <div class="col-lg-8">
-                                    <input class="form-control"  id="new_email" required >
-                                  </div>
-                                </div>
-
-
-                            <div class="form-group">
-                              <label class="col-md-3 control-label"></label>
-                              <div class="col-md-8">
-
-                                <input class="btn btn-primary" value="Save Changes" type="submit">
-                                <span></span>
-                                <input class="btn btn-default" value="Cancel" type="reset">
-
-                                    </div>
-                                </div>
-
-                                </form>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-<!-- ######################################-->
-                    
-                    
     
              <!-- ###################################### Phone no tab-->
-                    <div id="changePhone" class="tab-pane fade ">
+                    <div id="downloadstatement" class="tab-pane fade ">
                         <div class="container">
-                          <h1>Edit Phone Number</h1>
+                          <h1>Credit Card Statements</h1>
                           <hr>
                           <div class="row">
                             <!-- left column -->
@@ -422,49 +339,31 @@ saurabh start
 
                             <!-- edit form column -->
                             <div class="col-md-12 personal-info">
-                              <div class="alert alert-info alert-dismissable">
-                                <a class="panel-close close" data-dismiss="alert">×</a> 
-                                <i class="fa fa-coffee"></i><div id="c_phone"></div>
-                                 <strong>Change Phone Status:</strong><div id="c_phone"></div>
-                              </div>
+                              
+                                <div id="f1" >   
+                             <table class="table table-striped">
+                                 <thead class="thead-inverse">
+                                    <tr>
+                                      <th>#</th>
+                                      <th>Date</th>
+                                      <th>Credit Card Number</th>
+                                      <th>Credit Value</th>
+                                      <th>Credit Balance</th>
+                                  </tr>
 
-                              <form class="form-horizontal" role="form"  method="POST" onsubmit="changephone()">
+                                  <!-- THE JSON STRING HAS TO BE OF THE FORM OF THE TABLE HEADING MENTIONED ABOVE SO THAT IT CAN BE EASILY DISPLAYED IN THE UI  -->
+                              </thead>
+                              <tbody>
                                 
+                          </tbody>
+                      </table>
+                  </div>
+
+                  <div>
+                    <button type="submit">Download</button>
+                  </div>
+
                                   
-                                <div class="form-group">
-                                  <label class="col-md-3 control-label">New Phone number:</label>
-                                  <div class="col-md-8">
-                                    <input class="form-control" id="new_phone" type="text">
-                                  </div>
-                                </div>
-
-                                <div class="form-group">
-                                <label class="col-md-3 control-label">Mobile Carrier:</label>
-                                  <div class="col-md-8">
-                                  <div class="radio">
-                                          <label><input type="radio" name="carrier">ATT</label>
-                                        </div>
-                                        <div class="radio">
-                                          <label><input type="radio" name="carrier">T-Mobile</label>
-                                        </div>
-                                        </div>
-                                    
-                                </div>
-
-
-
-                            <div class="form-group">
-                              <label class="col-md-3 control-label"></label>
-                              <div class="col-md-8">
-
-                                <input class="btn btn-primary" value="Save Changes" type="submit">
-                                <span></span>
-                                <input class="btn btn-default" value="Cancel" type="reset">
-
-                                    </div>
-                                </div>
-
-                                </form>
 
                             </div>
                         </div>
@@ -473,9 +372,9 @@ saurabh start
 <!-- ######################################-->
                     
     <!-- ###################################### Password tab-->
-                    <div id="changePassword" class="tab-pane fade ">
+                    <div id="makepurchase" class="tab-pane fade ">
                         <div class="container">
-                          <h1>Edit Password</h1>
+                          <h1>Make Purchase</h1>
                           <hr>
                           <div class="row">
                             <!-- left column -->
@@ -486,27 +385,27 @@ saurabh start
                               <div class="alert alert-info alert-dismissable">
                                 <a class="panel-close close" data-dismiss="alert">×</a> 
                                 <i class="fa fa-coffee"></i>
-                                 <strong> Change Password Status:</strong><div id="c_password"></div>
+                                 <strong id="cc_purchase"></strong>
                               </div>
 
                               <form class="form-horizontal" role="form"  method="POST" onsubmit="changepassword()">
                                 
                                   <div class="form-group">
-                                  <label class="col-md-3 control-label">Old Password:</label>
+                                  <label class="col-md-3 control-label">Merchant Name:</label>
                                   <div class="col-md-8">
-                                    <input class="form-control" id="old_password" type="password">
+                                    <input class="form-control" value="Amazon">
                                   </div>
                                 </div>
                                   
                                 <div class="form-group">
-                                  <label class="col-md-3 control-label">New Password:</label>
+                                  <label class="col-md-3 control-label">Amount:</label>
                                   <div class="col-md-8">
-                                    <input class="form-control" id="new_password" type="password">
+                                    <input class="form-control" id="new_password" type="number">
                                   </div>
                                 </div>
 
                                 <div class="form-group">
-                                  <label class="col-md-3 control-label">Confirm password:</label>
+                                  <label class="col-md-3 control-label">CVV:</label>
                                   <div class="col-md-8">
                                     <input class="form-control" type="password">
                                   </div>
@@ -516,7 +415,7 @@ saurabh start
                               <label class="col-md-3 control-label"></label>
                               <div class="col-md-8">
 
-                                <input class="btn btn-primary" value="Save Changes" type="submit">
+                                <input class="btn btn-primary" value="Make Purchase" type="submit">
                                 <span></span>
                                 <input class="btn btn-default" value="Cancel" type="reset">
 
@@ -532,9 +431,9 @@ saurabh start
 <!-- ######################################-->    
     
 <!-- ###################################### Username tab-->
-                    <div id="changeUserName" class="tab-pane fade ">
+                    <div id="updatecclimit" class="tab-pane fade ">
                         <div class="container">
-                          <h1>Edit UserName</h1>
+                          <h1>Update Credit Card limit</h1>
                           <hr>
                           <div class="row">
                             <!-- left column -->
@@ -542,19 +441,15 @@ saurabh start
 
                             <!-- edit form column -->
                             <div class="col-md-12 personal-info">
-                              <div class="alert alert-info alert-dismissable">
-                                <a class="panel-close close" data-dismiss="alert">×</a> 
-                                <i class="fa fa-coffee"></i>
-                                 <strong>Change Username Status:</strong><div id="c_username"></div>
-                              </div>
+                              
 
-                              <form class="form-horizontal" role="form" method="POST" onsubmit="changeusername()">
+                              <form class="form-horizontal" role="form" method="POST" onsubmit="updatecclimit()">
                                 
                                   
                                 <div class="form-group">
-                                  <label class="col-md-3 control-label">New Username:</label>
+                                  <label class="col-md-3 control-label">New Credit Card Limit:</label>
                                   <div class="col-md-8">
-                                    <input class="form-control" id="new_username"  type="text" pattern="[A-Za-z]{3}">
+                                    <input class="form-control" id="new_username"  type="number">
                                   </div>
                                 </div>
 
@@ -562,7 +457,7 @@ saurabh start
                               <label class="col-md-3 control-label"></label>
                               <div class="col-md-8">
 
-                                <input class="btn btn-primary" value="Save Changes" type="submit">
+                                <input class="btn btn-primary" value="Update" type="submit">
                                 <span></span>
                                 <input class="btn btn-default" value="Cancel" type="reset">
 
@@ -579,9 +474,9 @@ saurabh start
                     
                     
                 <!-- ###################################### Nameab-->
-                    <div id="changeName" class="tab-pane fade in active">
+                    <div id="makepayment" class="tab-pane fade in active">
                         <div class="container">
-                          <h1>Edit Name</h1>
+                          <h1>Make Payment</h1>
                           <hr>
                           <div class="row">
                             <!-- left column -->
@@ -592,22 +487,16 @@ saurabh start
                               <div class="alert alert-info alert-dismissable">
                                 <a class="panel-close close" data-dismiss="alert">×</a> 
                                 <i class="fa fa-coffee"></i>
-                                 <strong>Change Name Status:</strong><div id="c_name"></div>
+                                 <strong id="mp_cc_number"></strong><div id="mp_cc_value"></div>
                               </div>
 
-                              <form class="form-horizontal" role="form" method="POST" onsubmit="changename()">
+                              <form class="form-horizontal" role="form" method="POST" onsubmit="makepayment()">
                                 
-                                <div class="form-group">
-                                  <label class="col-lg-3 control-label">First name:</label>
-                                  <div class="col-lg-8">
-                                    <input class="form-control" id="firstname" type="text">
-                                  </div>
-                                </div>
 
                                 <div class="form-group">
-                                  <label class="col-lg-3 control-label">Last name:</label>
+                                  <label class="col-lg-3 control-label">Amount:</label>
                                   <div class="col-lg-8">
-                                    <input class="form-control" id="lastname"  type="text">
+                                    <input class="form-control" id="credit_amount"  type="number">
                                   </div>
                                 </div>
 
@@ -615,7 +504,7 @@ saurabh start
                               <label class="col-md-3 control-label"></label>
                               <div class="col-md-8">
 
-                                <input class="btn btn-primary" value="Save Changes" type="submit">
+                                <input class="btn btn-primary" value="Pay" type="submit">
                                 <span></span>
                                 <input class="btn btn-default" value="Cancel" type="reset">
 
@@ -634,10 +523,7 @@ saurabh start
     </div><!--end of tabbed content-->
 </div>
             
-            
-            <!--
-saurabh end
--->
+   
 
 
         </div>
