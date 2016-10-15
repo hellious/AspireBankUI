@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Aspire Bank</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/jquery.dataTables.min.css" rel="stylesheet">    
+
+    <!-- Custom CSS -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+     <!-- jQuery -->
+        <script src="../js/jquery.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/jquery.dataTables.min.js"></script>
+	
+   
+<script type="text/javascript">
+
+
+    function readfile(file)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", "empdetails.json", true);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                var data  =  JSON.parse(allText);
+              	addData(data);
+              
+            }
+        }
+    }
+    rawFile.send(null);
+}
+    function getData()
+    {
+    //testing purpose
+    var dataSet = [
+    [ "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ],
+    [ "Garrett Winters", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750" ],
+    [ "Ashton Cox", "Junior Technical Author", "San Francisco", "1562", "2009/01/12", "$86,000" ],
+    [ "Cedric Kelly", "Senior Javascript Developer", "Edinburgh", "6224", "2012/03/29", "$433,060" ],
+    [ "Airi Satou", "Accountant", "Tokyo", "5407", "2008/11/28", "$162,700" ],
+    [ "Brielle Williamson", "Integration Specialist", "New York", "4804", "2012/12/02", "$372,000" ],
+    [ "Herrod Chandler", "Sales Assistant", "San Francisco", "9608", "2012/08/06", "$137,500" ],
+   
+];
+    addButton(dataSet);
+    return dataSet;
+    }
+    function addButton(dataSet)
+    {
+    	var button="<input class='btn btn-primary' value='View Emps' type='button'>";
+    	for(var i=0;i<dataSet.length;i++)
+    		{
+    		dataSet[i][3]=button;
+    		}
+    }
+    function addData(data)
+    {
+    	 
+    	$(document).ready(function() {
+    	    $('#example').DataTable( {
+    	        data: getData(),
+    	        
+    	    buttons: [
+    	              {
+    	                  text: 'Reload',
+    	                  action: function ( e, dt, node, config ) {
+    	                      dt.ajax.reload();
+    	                  }
+    	              }
+    	          ]
+    	    } );
+    	} );
+    }
+
+
+window.onload=addData();
+</script>
+</head>
+<body>
+
+<div id="wrapper">
+
+         <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                       
+                </li>
+                <li>
+                   <a href="./RoleAddition.html"> Create New Internal User</a>
+                </li>
+                <li>
+                    <a href="./ViewModifyEmpl.html">View/Modify Internal User</a>
+                </li>
+                
+                <li>
+                    <a href="./AccessLog.html">Access Logs</a>
+                </li>
+               <li>
+                    <a href="./PII.html">PII</a>
+                </li>
+                <li>
+                    <a href="#">Logout</a>
+                </li>
+                
+            </ul>
+        </div>
+        <div class="container-fluid">
+
+</div>
+
+<div id="employees">
+	<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Employee ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>View Employee.</th>
+                
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Extn.</th>
+               
+            </tr>
+        </tfoot>
+    </table>
+</div>
+</div>
+
+</body>
+</html>
