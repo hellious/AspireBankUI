@@ -26,6 +26,7 @@
 
 </head>
 
+
 <body>
 
     <div id="wrapper">
@@ -76,81 +77,16 @@
             <div class="panel-body">
               <div class="row">
                 <h2>Notifications</h2>
-				<table id="demoTable">
-				<tr><td>Description</td><td>To</td><td>Amount</td><td>Accept/Decline</td></tr>
-				<script>
-					window.onload=readfile()
-					function readfile()
-					{
-						var rawFile = new XMLHttpRequest();
-						rawFile.open("GET", "data.json", true);
-						rawFile.onreadystatechange = function ()
-						{
-						alert("hejfef");
-							if(rawFile.readyState === 4)
-							{alert("hejfef");
-								if(rawFile.status === 200 || rawFile.status == 0)
-								{alert("hejfef");
-									var allText = rawFile.responseText;
-									var data2  =  JSON.parse(allText);
-									//var select = document.getElementById("myaccounts");
-									var tr;
-								for (var i = 0; i < data.length; i++) {
-								console.log('enter');
-									tr = $('<tr/>');
-									tr.append("<td>" + data[i].description + "</td>");
-									tr.append("<td>" + data[i].from + "</td>");
-									tr.append("<td>" + data[i].amount + "</td>");
-									tr.append("<td>" + data[i].amount + "</td>");
-									$('table').append(tr);
-									}
-								}
-							}
-						}
-					}
-				</script>
-				</table>
-				<!--<div class=" col-md-12 col-lg-12 "> 
-                  <table class="table table-user-information">
-                    <tbody>
-                      <tr>
-                        <td>Account Number :</td>
-                        <td>Number from database</td>
-                      </tr>
-                      <tr>
-                        <td>Current balance</td>
-                        <td>Balance from database</td>
-                      </tr>
-                      <tr>
-                        <td>Date of Birth</td>
-                        <td>From DB</td>
-                      </tr>
-                   
-                         <tr>
-                             <tr>
-                        <td>Gender</td>
-                        <td>From DB</td>
-                      </tr>
-                        <tr>
-                        <td>Home Address</td>
-                        <td>From Db</td>
-                      </tr>
-                      <tr>
-                        <td>Email</td>
-                        <td><a href="mailto:info@support.com">From Db@gmail.com</a></td>
-                      </tr>
-                        <td>Phone Number</td>
-                        <td>123-4567-890(Landline - From DB)<br><br>555-4567-890(From DB)
-                        </td>
-                           
-                      </tr>
-                     
-                    </tbody>
-                  </table>
-                  
-                </div>-->
+                  <div id="demoTable">
+                      <div class="row">
+                          <div class="col col-md-3">Description</div>
+                          <div class="col col-md-3">To</div>
+                          <div class="col col-md-3">Amount</div>
+                          <div class="col col-md-3">Accept/Decline</div>
+                      </div>
+                  </div>
               </div>
-            </div>
+        
                              
           </div>
         </div>
@@ -173,6 +109,31 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+        
+        $.get("data.json", function(data, status){
+        $response = JSON.parse(data);
+            $.each($response.data, function(index, element) {
+                //alert(element.description); 
+                $row = '<div class="row" style="padding:10px">'+
+                            '<div class="col col-md-3">'+element.description+'</div>'+
+                          '<div class="col col-md-3">'+element.from+'</div>'+
+                          '<div class="col col-md-3">'+element.amount+'</div>'+
+                          '<div class="col col-md-3"><input type="button" data-ref="'+element.id+'" class="btn approve"  value= "Approve/decline"></input></div>'+
+                           '</div>'
+                $('#demoTable').append($row);
+            });
+            $('.approve').click(function(){
+                $temp = $(this).attr("data-ref")
+                //alert($(this).attr("data-ref"));
+                $.each($response.data, function(index, element){
+                    
+                    if (element.id == $temp){
+                        alert(element.description);
+                    }
+                });
+            }); 
+        });
+        
     </script>
 
 </body>
