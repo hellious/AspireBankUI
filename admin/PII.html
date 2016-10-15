@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Aspire Bank</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script type="text/javascript">
+
+         function readfile(file)
+         {
+
+          var rawFile = new XMLHttpRequest();
+          rawFile.open("GET", "empdetails.json", true);
+          rawFile.onreadystatechange = function ()
+          {
+            if(rawFile.readyState === 4)
+            {
+              if(rawFile.status === 200 || rawFile.status == 0)
+              {
+                var allText = rawFile.responseText;
+                var data  =  JSON.parse(allText);
+                document.getElementById("empID").value= data["empID"];
+               document.getElementById("firstname").value= data["firstName"];
+              document.getElementById("lastname").value= data["LastName"];
+              document.getElementById("phone").value= data["phone"];
+              document.getElementById("email").value= data["email"];
+              document.getElementById("username").value= data["userName"];
+
+              }
+            }
+
+          }
+          rawFile.send(null);
+        }
+         
+function editprofile()
+            {
+
+                //alert(document.getElementById("fromself").value + " " + document.getElementById("toself").value + " " + document.getElementById("transferamount").value);
+                //alert(data[][document.getElementById("fromself").value])
+                //if(document.getElementById("transferamount").value > )
+
+                var postdata = 
+                {
+                    "firstname":document.getElementById("firstname").value,
+                    "lastname":document.getElementById("lastname").value,
+                    "username":document.getElementById("username").value,
+                    "email":document.getElementById("email").value,
+                    "phone":document.getElementById("phone").value,
+                    "password":document.getElementById("password").value,
+                }
+                var dataString = JSON.stringify(postdata);
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "backend.jsp",
+                    data: {myData:dataString},
+                    contentType: "application/json; charset=utf-8",
+                    success: function(data){
+                        alert('transacion successfull');
+                    },
+                    error: function(e){
+                        console.log(e.message);
+                    }
+                });
+
+            }
+
+          window.onload=readfile;
+
+        </script>
+
+
+      </head>
+      <body>
+      
+      
+<div id="wrapper">
+
+       
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                       
+                </li>
+                <li>
+                   <a href="./RoleAddition.html"> Create New Internal User</a>
+                </li>
+                <li>
+                    <a href="./ViewAllEmployees.html">View All Internal User</a>
+                </li>
+                
+                <li>
+                    <a href="./AccessLog.html">Access Logs</a>
+                </li>
+               <li>
+                    <a href="./PII.html">PII</a>
+                </li>
+                <li>
+                    <a href="#">Logout</a>
+                </li>
+                
+            </ul>
+        </div>
+        <div class="container-fluid">
+
+</div>
+<div id="logs"></div>
+</div>
+
+</body>
+</html>
+     
