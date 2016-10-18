@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Aspire Bank</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom CSS -->
+	<link href="css/simple-sidebar.css" rel="stylesheet">
+
+	
+
+        <script type="text/javascript">
+
+
+        	function getdetails()
+        	{
+
+        	//	var postdata = 
+        	//	{
+        	//		"cust_id":session()
+        		//}
+        		//var dataString = JSON.stringify(postdata);
+        		$.ajax({
+        			type: "POST",
+        			dataType: "json",
+        			url: "account/view",
+        			//data: {myData:dataString},
+        			contentType: "application/json; charset=utf-8",
+        			success: function(responsedata,status){
+        				if(status=="success"){
+
+        					responsedata =  JSON.stringify(postdata);
+        					for (var i =0 ; i< Object.keys(responsedata["data"]).length;i++)
+        					{
+        						txt+="<div class='row'><div class='col-md-8'><h3>Account Number:</h3><h4>" + responsedata["data"][i]["acc_no"]+ "</h4></div><div class='col-md-4'><h3>Balance:</h3><h5>$" + resposedata["data"][i]["balance"]+ "</h5></div></div>";
+        					}
+        					document.getElementById("accounts").innerHTML=txt;
+
+        					//document.getElementById("customername").innerHTML=responsedata['cust_name'];
+        				}
+        			},
+        			error: function(e){
+        				console.log(e.message);
+        			}
+        		});
+
+        	}
+
+        }
+
+
+        window.onload=getdetails;
+    </script>
+
+</head>
+
+<body>
+
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper">
+			<ul class="sidebar-nav">
+				<li class="sidebar-brand">
+
+				</li>
+				<li>
+					<a href="accounts.html">Account Information</a>
+				</li>
+				<li>
+					<a href="transfercash.html">Transfer Cash</a>
+				</li>
+				<li>
+					<a href="balanceinfo.html">Balance Statement</a>
+				</li>
+				<li>
+					<a href="request.html">Requests</a>
+				</li>
+				<li>
+					<a href="viewprofile.html">View Profile</a>
+				</li>
+				<li>
+					<a href="editprofile.html">Edit Profile</a>
+				</li>
+				<li>
+					<a href="creditcard.html">Credit Card</a>
+				</li>
+				<li>
+					<a href="#">Logout</a>
+				</li>
+
+			</ul>
+		</div>
+
+		<div class="jumbotron">
+			<div class="container">
+				<h2 id="customername"></h2>
+				<h3> Accounts</h3>
+				<div id="accounts">        </div>
+				
+				
+
+				
+
+			</div>
+
+
+
+
+
+		</div>
+
+
+
+
+		<script src="js/jquery.js"></script>
+
+
+		<script src="js/bootstrap.min.js"></script>
+
+	</body>
+
+	</html>

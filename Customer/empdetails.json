@@ -1,0 +1,24 @@
+{
+
+"Name": "Some name",
+"Firstname": "Some",
+"Lastname": "name",
+"Phone": 1234567890,
+"Username": "someuser",
+"Email": "some@gmail.com",
+
+"Savingsaccount" : [ {"Accountnumber": "12312421123","Balance" : 100},
+   					  {"Accountnumber" : "12443576575", "Balance" : 200}		
+					],
+"Checkingaccount": [{"Accountnumber": "3452352334","Balance" : 50},
+   					  {"Accountnumber" : "3543432532423", "Balance" : 65}
+]
+
+
+}
+
+
+
+
+
+
