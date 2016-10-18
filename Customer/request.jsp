@@ -1,7 +1,11 @@
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="home" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+<c:url var="home" value="/" scope="request" />
 
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,11 +16,16 @@
 	<title>Aspire Bank</title>
 
 	<!-- Bootstrap Core CSS -->
-	<link href="css/bootstrap.min.css" rel="stylesheet">
+ <link href="/C55-Backend/assets/css/bootstrap.min.css" rel="stylesheet">
 	
 
 	<!-- Custom CSS -->
-	<link href="css/simple-sidebar.css" rel="stylesheet">
+	 <link href="/C55-Backend/assets/css/simple-sidebar.css" rel="stylesheet">
+	   <!-- jQuery -->
+        <script src="/C55-Backend/assets/js/jquery.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="/C55-Backend/assets/js/bootstrap.min.js"></script>
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -96,7 +105,9 @@ function selfaccount()
 	$.ajax({
 		type: "POST",
 		dataType: "json",
-		url: "transfer",
+		url: "${home}transfer",
+
+//This part is mising 
 		data: {myData:dataString},
 		contentType: "application/json; charset=utf-8",
 		success: function(data,testResponse,xhr){
@@ -126,7 +137,7 @@ function otheraccount()
 	$.ajax({
 		type: "POST",
 		dataType: "json",
-		url: "transfer",
+		url: "${home}transfer",
 		data: {myData:dataString},
 		contentType: "application/json; charset=utf-8",
 		success: function(data){
@@ -153,35 +164,32 @@ function otheraccount()
 			<ul class="sidebar-nav">
 				<li class="sidebar-brand">
 
-					Aspire Bank
-
 				</li>
 				<li>
-					<a href="accounts.html">Account Information</a>
+					<a href="${home}accounts">Account Information</a>
 				</li>
 				<li>
-					<a href="transfercash.html">Transfer Cash</a>
+					<a href="${home}transfercash">Transfer Cash</a>
 				</li>
 				<li>
-					<a href="balanceinfo.html">Balance Statement</a>
-				</li>
-				
-				<li>
-                    <a href="request.html">Requests</a>
-                </li>
-				<li>
-                    <a href="viewprofile.html">View Profile</a>
-                </li>
-				<li>
-					<a href="editprofile.html">Edit Profile</a>
+					<a href="${home}balanceinfo">Balance Statement</a>
 				</li>
 				<li>
-                    <a href="creditcard.html">Credit Card</a>
-                </li>
-
+					<a href="${home}request">Requests</a>
+				</li>
+				<li>
+					<a href="${home}viewprofile">View Profile</a>
+				</li>
+				<li>
+					<a href="${home}editprofile">Edit Profile</a>
+				</li>
+				<li>
+					<a href="${home}creditcard">Credit Card</a>
+				</li>
 				<li>
 					<a href="#">Logout</a>
 				</li>
+
 			</ul>
 		</div>
 		<!-- /#sidebar-wrapper -->
@@ -263,12 +271,7 @@ function otheraccount()
 		</div>
 		<!-- /#wrapper -->
 
-		<!-- jQuery -->
-		<script src="js/jquery.js"></script>
-
-		<!-- Bootstrap Core JavaScript -->
-		<script src="js/bootstrap.min.js"></script>
-
+	
 
 	</body>
 
