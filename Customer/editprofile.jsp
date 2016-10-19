@@ -35,7 +35,43 @@
 
         <script type="text/javascript">
 
+  function getdetails()
+          {
 
+          //  var postdata = 
+          //  {
+          //    "cust_id":session()
+            //}
+            //var dataString = JSON.stringify(postdata);
+            $.ajax({
+              type: "POST",
+              dataType: "json",
+              url: "${home}profile/view",
+              //data: {myData:dataString},
+              contentType: "application/json; charset=utf-8",
+              success: function(responsedata,status){
+                if(status=="success"){
+
+                  responsedata =  JSON.stringify(postdata);    
+
+                  document.getElementById("new_username").value=responsedata['username'];
+                  	 document.getElementById("new_phone").value=responsedata['mobile'];
+                     document.getElementById("new_email").value=responsedata['email'];
+  					document.getElementById("firstname").value=responsedata['f_name'];
+                  document.getElementById("lastname").value=responsedata['l_name']; }
+                  
+                  },
+                  error: function(e){
+                    console.log(e.message);
+                  }
+                });
+
+          }
+
+        }
+
+
+        
 
 
 
@@ -82,7 +118,10 @@
                   "email":document.getElementById("new_email").value,
                   "item": "email"
                 }
-                var dataString = JSON.stringify(postdata);
+        
+
+
+        		window.onload=getdetails;        var dataString = JSON.stringify(postdata);
 
                 alert(dataString);
 
@@ -225,6 +264,9 @@ function checkPasswordMatch() {
 }
 
 
+
+
+		window.onload=getdetails;
 
 
             </script>
