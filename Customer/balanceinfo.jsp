@@ -170,7 +170,7 @@
 
                          <label for="self">From Account Number:</label>
                              <select class="form-control" id="myaccounts" onchange="showtable()">
-                                <option value="None" </option>
+                                <option value="None"> </option>
                             </select>
 
 
